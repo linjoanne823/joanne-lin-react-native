@@ -6,13 +6,16 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-paper";
 
 import axios from "axios";
 import UseModal from "./UseModal";
 import RecipeDetails from "./RecipeDetails";
+import DietFilter from "./DietFilter";
+import AllergiesFilter from "./AllergiesFilter";
+import CuisineFilter from "./CuisineFilter";
 export default function RecipeList() {
   const [recipes, setRecipes] = useState([]);
   const [diet, setDiet] = useState("");
@@ -48,30 +51,26 @@ export default function RecipeList() {
     getRecipes();
   }, []);
 
-  // //   const handleSelectDietaryRestriction = (e) => {
-  // //     e.preventDefault();
-  // //     return setDietContext(e.target.value);
-  // //   };
+  const handleSelectDietaryRestriction = (item) => {
+    return setDiet(item.value);
+  };
 
-  // //   const handleSelectAllergies = (e) => {
-  // //     e.preventDefault();
-  // //     return setAllergiesContext(e.target.value);
-  // //   };
+  const handleSelectAllergies = (item) => {
+    return setIntolerances(item.value);
+  };
 
-  // //   const handleSelectCuisine = (e) => {
-  // //     e.preventDefault();
-  // //     return setCuisine(e.target.value);
-  // //   };
+  const handleSelectCuisine = (item) => {
+    return setCuisine(item.value);
+  };
 
-  // //   const handleSubmit = (e) => {
-  // //     e.preventDefault();
-  // //     getRecipes();
-  // //   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    getRecipes();
+  };
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1
-      
+      flex: 1,
     },
   });
 
@@ -80,28 +79,55 @@ export default function RecipeList() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        {recipes.map((recipe, i) => {
-          {
-            return (
-              <View key={recipe.id}>
-                <TouchableOpacity onPress={() => setActiveModalIndex(i)}>
-                  <Image
-                    source={{ uri: recipe.image }}
-                    style={{ width: 250, height: 250, alignSelf:'center'}}
-                  />
+        <View>
+          <DietFilter
+            diet={diet}
+            handleSelectDietaryRestriction={handleSelectDietaryRestriction}
+          />
+          <AllergiesFilter
+            intolerances={intolerances}
+            handleSelectAllergies={handleSelectAllergies}
+          />
+          <CuisineFilter
+            cuisine={cuisine}
+            handleSelectCuisine={handleSelectCuisine}
+          />
+          <Button onPress={handleSubmit}>Submit</Button>
+        </View>
+        {Object.keys(recipes).length > 0 ? (
+          recipes.map((recipe, i) => {
+            {
+              return (
+                <View key={recipe.id}>
+                  <TouchableOpacity onPress={() => setActiveModalIndex(i)}>
+                    <Image
+                      source={{ uri: recipe.image }}
+                      style={{ width: 250, height: 250, alignSelf: "center" }}
+                    />
 
-                  <Text style={{fontSize:18, fontWeight:'600', padding:20, alignSelf:'center'}}>{recipe.title}</Text>
-                  {
-                    activeModalIndex === i && 
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: "600",
+                        padding: 20,
+                        alignSelf: "center",
+                      }}
+                    >
+                      {recipe.title}
+                    </Text>
+                    {activeModalIndex === i && (
                       <UseModal>
-                          {<RecipeDetails recipeId={recipe.id}/>}
+                        {<RecipeDetails recipeId={recipe.id} />}
                       </UseModal>
-                  }
-                </TouchableOpacity>
-              </View>
-            );
-          }
-        })}
+                    )}
+                  </TouchableOpacity>
+                </View>
+              );
+            }
+          })
+        ) : (
+          <Text>Oh nuu try another combo maybe?</Text>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

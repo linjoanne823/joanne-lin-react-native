@@ -5303,6 +5303,11 @@ react-native-codegen@^0.69.1:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-element-dropdown@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-element-dropdown/-/react-native-element-dropdown-2.1.0.tgz#a13c544798e2d889e076a917f7980d090b62541a"
+  integrity sha512-y6s+MANhVy2HIfsnrHh1pVMVu9aXUPcxWH7GuCJ12W+iJiBdzmyyKYNWl37b/9IJHbsIpDyiFlCFwj21VBANeA==
+
 react-native-gradle-plugin@^0.0.7:
   version "0.0.7"
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.7.tgz"
