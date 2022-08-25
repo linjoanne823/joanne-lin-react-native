@@ -65,9 +65,10 @@ export default function FavouriteRecipes() {
                     >
                       {recipe.title}
                     </Text>
+                    
                     {activeModalIndex === i && (
                       <UseModal>
-                        {<RecipeDetails recipeId={recipe.id} />}
+                        {<RecipeDetails recipeId={recipe.recipe_id} />}
                       </UseModal>
                     )}
                   </TouchableOpacity>

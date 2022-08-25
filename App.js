@@ -10,63 +10,16 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Login from "./components/Login";
 import FavouriteRecipes from "./components/FavouriteRecipes";
 import { UserContext } from "./contexts/UserContext";
-
-const Tab = createBottomTabNavigator();
-
-const Tabs = () => {
-  const [userId, setUserId] = useState("");
-  return (
-    <UserContext.Provider value={{ userId, setUserId }}>
-      <Tab.Navigator>
-        {/* <Tab.Screen
-          name="Home"
-          component={Login}
-          options={{
-            tabBarLabel: "Home",
-            tabBarIcon: () => (
-              <MaterialCommunityIcons name="home" color="black" size={26} />
-            ),
-          }}
-        /> */}
-        <Tab.Screen
-          name="Recipes"
-          component={RecipeList}
-          options={{
-            tabBarLabel: "Recipes",
-            tabBarIcon: () => (
-              <MaterialCommunityIcons
-                name="food-variant"
-                color="black"
-                size={26}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Favourites"
-          component={FavouriteRecipes}
-          options={{
-            tabBarLabel: "Favourites",
-            tabBarIcon: () => (
-              <MaterialCommunityIcons name="heart" color="black" size={26} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </UserContext.Provider>
-  );
-};
+import Navigate from "./components/Navigate";
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
-    // <View style={styles.container}>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState("");
 
-    //   <RecipeList />
-    //   <StatusBar style="auto" />
-    // </View>
+  return (
+    <UserContext.Provider value={{ userId, setUserId }}>
+      {!isLoggedIn ? <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> :<Navigate/>}
+    </UserContext.Provider>
   );
 }
 

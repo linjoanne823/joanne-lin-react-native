@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   SafeAreaView,
   View,
@@ -9,13 +9,14 @@ import {
 } from "react-native";
 import { Button } from "react-native-paper";
 import axios from "axios";
+import { UserContext } from "../contexts/UserContext";
 // import LikeButton from "../LikeButton/LikeButtonRecipes";
 
 const RecipeDetails = (props) => {
   const [recipeDetails, setRecipeDetails] = useState({});
   const [showIngredients, setShowIngredients] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
-  const [userId, setUserId] = useState(1);
+  const { userId } = useContext(UserContext);
 
   const getSelectRecipe = () => {
     axios
@@ -57,10 +58,11 @@ const RecipeDetails = (props) => {
   //   };
 
   return (
+     
     <SafeAreaView>
+     {console.log(recipeDetails)}
       {Object.keys(recipeDetails).length > 0 ? (
         <ScrollView>
-        
           <View>
             {/* <LikeButton
               handleLike={handleLikeRecipes}

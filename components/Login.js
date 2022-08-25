@@ -16,10 +16,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Navigation } from "react-native-navigation";
 
-const Login = ({ navigation }) => {
+const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginError, setIsLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { setUserId } = useContext(UserContext);
@@ -39,7 +39,7 @@ const Login = ({ navigation }) => {
       )
       .then((response) => {
         console.log(response);
-        setIsLoggedIn(true);
+        props.setIsLoggedIn(true);
         setUserId(response.data.data.user.user_id);
       })
       .catch((err) => {
@@ -49,14 +49,8 @@ const Login = ({ navigation }) => {
       });
   };
 
-  const logout = () => {
-    setEmail("");
-    setPassword("");
-  };
-
   return (
     <SafeAreaView>
-      {!isLoggedIn ? (
         <View>
           {isLoginError && <Text style={{ color: "red" }}>{errorMessage}</Text>}
           <TextInput
@@ -73,14 +67,7 @@ const Login = ({ navigation }) => {
             onChangeText={setPassword}
           />
           <Button onPress={handleSubmit}>Login</Button>
-        </View>
-      ) : (
-        <View>
-          <Button onPress={() => navigation.navigate("Recipes")}>
-            Go to Recipes
-          </Button>
-        </View>
-      )}
+        </View>    
     </SafeAreaView>
   );
 };
