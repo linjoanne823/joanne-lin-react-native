@@ -21,7 +21,7 @@ export default function FavouriteRecipes() {
 
   const getFavouriteRecipes = () => {
     axios
-      .get(`http://localhost:8080/recipes/favourites/?userId=${userId}`)
+      .get(`http://ec2-54-241-76-100.us-west-1.compute.amazonaws.com:8080/recipes/favourites/?userId=${userId}`)
       .then((response) => {
         setFavouriteRecipes(response.data);
       });
