@@ -28,7 +28,7 @@ const Login = (props) => {
     e.preventDefault();
     axios
       .post(
-        "http://localhost:8080/users/login",
+        "http://ec2-54-241-76-100.us-west-1.compute.amazonaws.com:8080/users/login",
         {
           email: email,
           password: password,

@@ -37,7 +37,7 @@ export default function RecipeList() {
 
   const getRecipes = () => {
     axios
-      .get(`http://localhost:8080/recipes/?${buildQueryString()}`)
+      .get(`http://ec2-54-241-76-100.us-west-1.compute.amazonaws.com:8080/recipes/?${buildQueryString()}`)
       .then((response) => {
         setNoRecipesFound(response.data.results.length === 0);
         return setRecipes(response.data.results);

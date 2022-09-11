@@ -20,7 +20,7 @@ const RecipeDetails = (props) => {
 
   const getSelectRecipe = () => {
     axios
-      .get(`http://localhost:8080/recipes/${props.recipeId}?userId=${userId}`)
+      .get(`http://ec2-54-241-76-100.us-west-1.compute.amazonaws.com:8080/recipes/${props.recipeId}?userId=${userId}`)
       .then((response) => {
         setRecipeDetails(response.data);
       });
