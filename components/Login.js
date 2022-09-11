@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  ImageBackground
 } from "react-native";
 import { Button } from "react-native-paper";
 import axios from "axios";
@@ -15,6 +16,7 @@ import { UserContext } from "../contexts/UserContext";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Navigation } from "react-native-navigation";
+import image from "../assets/pancake.jpg";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -50,7 +52,10 @@ const Login = (props) => {
 
   return (
     <SafeAreaView>
+     
         <View>
+        <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+          <View style={styles.container}>
           {isLoginError && <Text style={{ color: "red" }}>{errorMessage}</Text>}
           <TextInput
             placeholder={"Enter your email"}
@@ -66,6 +71,8 @@ const Login = (props) => {
             onChangeText={setPassword}
           />
           <Button onPress={handleSubmit}>Login</Button>
+          </View>
+          </ImageBackground>
         </View>    
     </SafeAreaView>
   );
@@ -76,9 +83,21 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 12,
     borderWidth: 0.8,
-    borderColor: "grey",
+    borderColor:"grey",
     padding: 10,
   },
+  image: {
+    height: 700,
+  },
+  container: {
+    backgroundColor: "white",
+    borderRadius:20,
+    padding:10,
+    top: 100,
+    width:300,
+    left:40,
+
+  }
 });
 
 export default Login;
